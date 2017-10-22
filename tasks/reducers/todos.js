@@ -8,6 +8,21 @@ const dummyData = [
         id: 101,
         title: "My Second Todo",
         dismissed: false
+    },
+    {
+        id: 102,
+        title: "My Third Todo",
+        dismissed: false
+    },
+    {
+        id: 103,
+        title: "My Fourth Todo",
+        dismissed: false
+    },
+    {
+        id: 104,
+        title: "My Fifth Todo",
+        dismissed: false
     }
 ];
 
