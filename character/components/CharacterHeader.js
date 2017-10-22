@@ -1,36 +1,43 @@
 import React from 'react';
-import { FlatList, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import AnimatedSprite from 'react-native-animated-sprite';
-import heroSprite from '../../sprites/heroSprite.js';
+import { Text, View, Image, StyleSheet } from 'react-native';
+// import heroSprite from '../../sprites/heroSprite.js';
 import { connect } from 'react-redux';
+import { NAVIGATION_BAR_HEIGHT } from '../../constants/style.js';
 
-class CharacterHeader extends React.PureComponent {
+const CharacterTopContent = props => {
+    return (
+        <View style={styles.characterTopContent}>
+            <Text>Dextron</Text>
+        </View>
+    );
+};
+
+const CharacterBottomContent = props => {
+    return (
+        <View style={styles.characterBottomContent}>
+            <View style={styles.characterLeftPanel}>
+                <Image style={styles.characterPose} source={require("../../images/mock-character.png")} />
+            </View>
+            <View style={styles.characterRightPanel}>
+
+            </View>
+        </View>
+    );
+};
+
+class CharacterHeader extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <AnimatedSprite
-                    sprite={heroSprite}
-                    coordinates={{
-                        top: 180,
-                        left: 16
-                    }}
-                    animationFrameIndex={heroSprite.animationIndex('IDLE')}
-                    loopAnimation={true}
-                    fps={1}
-                    size={{
-                        width: heroSprite.size.width,
-                        height: heroSprite.size.height
-                    }}
-                />
+                <CharacterTopContent />
+                <CharacterBottomContent />
             </View>
         );
     }
 }
 
 const mapStateToProps = state => {
-    return {
-        
-    };
+    return {};
 };
 
 export default connect(mapStateToProps)(CharacterHeader);
@@ -38,15 +45,31 @@ export default connect(mapStateToProps)(CharacterHeader);
 const styles = StyleSheet.create({
     container: {
         flex: 3,
-        justifyContent: "flex-end",
-        alignItems: "flex-start",
         backgroundColor: "#f9f9f9",
-        borderBottomWidth: 2,
-        borderBottomColor: "#eee",
-        padding: 15
+        borderBottomWidth: 1,
+        borderBottomColor: "#dedede",
+        paddingTop: NAVIGATION_BAR_HEIGHT + 15,
+        paddingHorizontal: 15,
+        paddingBottom: 15
     },
     characterPose: {
         width: 75,
         height: 84
+    },
+    characterTopContent: {
+        flex: 1,
+        borderBottomColor: "#dedede",
+        borderBottomWidth: 1
+    },
+    characterBottomContent: {
+        flex: 5,
+        flexDirection: "row"
+    },
+    characterLeftPanel: {
+        flex: 1,
+        justifyContent: "flex-end"
+    },
+    characterRightPanel: {
+        flex: 1
     }
 });
