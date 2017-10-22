@@ -1,8 +1,8 @@
-import * as actionTypes from './creators';
+import * as actions from './creators';
 
 // Core Actions
 
-export const dispatchInitialSetup = () => (dispatch, getState) => {
+export const dispatchCompleteTodo = id => (dispatch, getState) => {
     const state = getState();
-    dispatch(actionTypes.initialAction());
+    dispatch(actions.completeTodoSuccess(id));
 };

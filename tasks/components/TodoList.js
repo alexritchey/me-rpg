@@ -1,14 +1,16 @@
 import React from 'react';
 import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import * as actions from '../actions/index.js';
 import { connect } from 'react-redux';
 
 class TodoCell extends React.PureComponent {
     render() {
+        const { onTapComplete } = this.props;
         return (
             <View style={styles.cell}>
                 <TouchableOpacity
                     style={{flex: 1}}
-                    onPress={() => {}}
+                    onPress={() => onTapComplete(this.props.id)}
                     activeOpacity={0.9}
                 >
                     <View style={styles.cellCheckbox} />
@@ -22,6 +24,16 @@ class TodoCell extends React.PureComponent {
 }
 
 class TodoList extends React.PureComponent {
+
+    constructor(props, context) {
+        super(props, context);
+        this._onTapComplete = this._onTapComplete.bind(this);
+    }
+
+    _onTapComplete(id) {
+        this.props.dispatchCompleteTodo(id);
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -30,7 +42,7 @@ class TodoList extends React.PureComponent {
                         marginTop:0
                     }}
                     data={this.props.list}
-                    renderItem={({item}) => <TodoCell title={item.title} />}
+                    renderItem={({item}) => <TodoCell title={item.title} id={item.id} onTapComplete={this._onTapComplete} />}
                     keyExtractor={(item, index) => index}
                 />
             </View>
@@ -44,7 +56,7 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(TodoList);
+export default connect(mapStateToProps, actions)(TodoList);
 
 const styles = StyleSheet.create({
     container: {

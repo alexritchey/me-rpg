@@ -1,3 +1,6 @@
+import * as actionTypes from '../actions/types.js';
+import { getIndexById } from '../../helpers/index.js';
+
 const dummyData = [
     {
         id: 100,
@@ -30,6 +33,13 @@ const todos = (state = [], action) => {
     switch (action.type) {
         case 'INITIAL_ACTION':
             return dummyData;
+
+        case actionTypes.COMPLETE_TODO.SUCCESS:
+            const { id } = action.payload;
+            console.log(id);
+            const todoIdx = getIndexById(state, id);
+            return [...state.slice(0, todoIdx), ...state.slice(todoIdx + 1)];
+
         default:
             return state;
     }
