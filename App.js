@@ -11,17 +11,6 @@ import Root from './core/components/Root.js';
 import coreReducers from './core/reducers/index.js';
 import * as coreActions from './core/actions/index.js';
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBHfZCRUP5vEHFzI2X-6M8xftJ6YdvltD0",
-    authDomain: "merpg-5a5e3.firebaseapp.com",
-    databaseURL: "https://merpg-5a5e3.firebaseio.com",
-    projectId: "merpg-5a5e3",
-    storageBucket: "merpg-5a5e3.appspot.com",
-    messagingSenderId: "154022500766"
-};
-
-const firebaseApp = initializeApp(firebaseConfig);
-
 const reducers = coreReducers;
 const logger = createLogger();
 const initialState = {

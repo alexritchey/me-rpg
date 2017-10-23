@@ -25,3 +25,27 @@ export const UI_HEADER_EXP_PROGRESS_SPRITE = {
     size: { width: 16, height: 64},
     frames: [require('../images/ui-header-exp-progress.png')]
 };
+
+export const UI_HEADER_HP_START_SPRITE = {
+    name: "ui-header-hp-start",
+    size: { width: 16, height: 64},
+    frames: [require('../images/ui-header-hp-start.png')]
+};
+
+export const UI_HEADER_HP_PROGRESS_SPRITE = {
+    name: "ui-header-hp-progress",
+    size: { width: 16, height: 64},
+    frames: [require('../images/ui-header-hp-progress.png')]
+};
+
+export const UI_HEADER_MP_START_SPRITE = {
+    name: "ui-header-mp-start",
+    size: { width: 16, height: 64},
+    frames: [require('../images/ui-header-mp-start.png')]
+};
+
+export const UI_HEADER_MP_PROGRESS_SPRITE = {
+    name: "ui-header-mp-progress",
+    size: { width: 16, height: 64},
+    frames: [require('../images/ui-header-mp-progress.png')]
+};

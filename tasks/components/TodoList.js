@@ -37,14 +37,17 @@ class TodoList extends React.PureComponent {
     render() {
         return (
             <View style={styles.container}>
-                <FlatList
-                    containerStyle={{
-                        marginTop:0
-                    }}
-                    data={this.props.list}
-                    renderItem={({item}) => <TodoCell title={item.title} id={item.id} onTapComplete={this._onTapComplete} />}
-                    keyExtractor={(item, index) => index}
-                />
+                {this.props.list.length ?
+                    <FlatList
+                        containerStyle={{
+                            marginTop:0
+                        }}
+                        data={this.props.list}
+                        renderItem={({item}) => <TodoCell title={item.title} id={item.id} onTapComplete={this._onTapComplete} />}
+                        keyExtractor={(item, index) => index}
+                    /> :
+                    <Text>Add some tasks!</Text>
+                }
             </View>
         );
     }
@@ -66,7 +69,9 @@ const styles = StyleSheet.create({
     cell: {
         flexDirection: "row",
         justifyContent: "flex-start",
-        marginBottom: 10
+        marginBottom: 10,
+        marginLeft: 10,
+        marginRight: 10
     },
     cellContent: {
         flex: 4,
