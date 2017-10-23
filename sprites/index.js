@@ -1,4 +1,4 @@
-const heroSprite = {
+export const heroSprite = {
     name: "hero-header-pose",
     size: { width: 75, height: 84 },
     animationTypes: ['IDLE'],
@@ -14,4 +14,14 @@ const heroSprite = {
     }
 };
 
-export default heroSprite;
+export const UI_HEADER_EXP_START_SPRITE = {
+    name: "ui-header-exp-start",
+    size: { width: 16, height: 64},
+    frames: [require('../images/ui-header-exp-start.png')]
+};
+
+export const UI_HEADER_EXP_PROGRESS_SPRITE = {
+    name: "ui-header-exp-progress",
+    size: { width: 16, height: 64},
+    frames: [require('../images/ui-header-exp-progress.png')]
+};
