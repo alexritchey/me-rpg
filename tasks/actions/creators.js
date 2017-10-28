@@ -24,6 +24,29 @@ export const completeTodoFailure = () => {
     };
 };
 
+export const addTodoRequest = () => {
+    return {
+        type: actionTypes.ADD_TODO.REQUEST,
+        payload: {}
+    };
+};
+
+export const addTodoSuccess = data => {
+    return {
+        type: actionTypes.ADD_TODO.SUCCESS,
+        payload: {
+            data
+        }
+    };
+};
+
+export const addTodoFailure = () => {
+    return {
+        type: actionTypes.ADD_TODO.FAILURE,
+        payload: {}
+    };
+};
+
 
 export const changeTab = newTab => {
     return {

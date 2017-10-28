@@ -1,7 +1,6 @@
-export const COMPLETE_TODO = {
-    REQUEST: 'tasks/COMPLETE_TODO_REQUEST',
-    SUCCESS: 'tasks/COMPLETE_TODO_SUCCESS',
-    FAILURE: 'tasks/COMPLETE_TODO_FAILURE'
-};
+import { createFetchType } from '../../helpers/index.js';
+
+export const COMPLETE_TODO = createFetchType('tasks/COMPLETE_TODO');
+export const ADD_TODO = createFetchType('tasks/ADD_TODO');
 
 export const CHANGE_TAB = 'tasks/CHANGE_TAB';

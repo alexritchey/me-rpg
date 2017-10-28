@@ -5,6 +5,7 @@ import * as actions from '../actions/index.js';
 import { connect } from 'react-redux';
 import { TAB_MAP } from '../../constants/tasks.js';
 import Modal from 'react-native-modalbox';
+import { H1 } from 'nachos-ui';
 
 class TodoCell extends React.PureComponent {
     render() {
@@ -78,7 +79,9 @@ class TasksView extends React.PureComponent {
                         keyExtractor={(item, index) => index}
                         style={{flex: 7}}
                     /> :
-                    <Text style={{flex: 7 }}>Add some tasks!</Text>
+                    <View style={{flex: 7, alignItems: "center", justifyContent: "center"}}>
+                        <H1>Add some tasks!</H1>
+                    </View>
                 }
             </View>
         );

@@ -1,7 +1,8 @@
 import React from 'react';
-import { NavigatorIOS, TabBarIOS, View, StyleSheet, Text } from 'react-native';
+import { NavigatorIOS, TabBarIOS, View, StyleSheet } from 'react-native';
 import TasksView from '../../tasks/components/TasksView.js';
 import Modal from 'react-native-modalbox';
+import AddTodoView from '../../tasks/components/AddTodoView.js';
 import CharacterHeader from '../../character/components/CharacterHeader.js';
 
 const InitialView = props => {
@@ -59,13 +60,14 @@ export default class Root extends React.Component {
                     </TabBarIOS>
                 </View>
                 <Modal
-                    style={{flex: 1, backgroundColor: "white"}}
+                    style={{flex: 0.65, padding: 16}}
                     ref={(modal) => { this.todoSettingsModal = modal; }}
                     onClosed={this.onClose}
                     onOpened={this.onOpen}
                     onClosingState={this.onClosingState}
+                    position={"bottom"}
                 >
-                    <Text style={styles.text}>Basic modal</Text>
+                    <AddTodoView successCallback={() => this.todoSettingsModal.close()} />
                 </Modal>
             </View>
         );

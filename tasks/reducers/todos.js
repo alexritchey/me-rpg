@@ -4,27 +4,12 @@ import { getIndexById } from '../../helpers/index.js';
 const dummyData = [
     {
         id: 100,
-        title: "My First Todo",
+        title: "Brush teeth",
         dismissed: false
     },
     {
         id: 101,
-        title: "My Second Todo",
-        dismissed: false
-    },
-    {
-        id: 102,
-        title: "My Third Todo",
-        dismissed: false
-    },
-    {
-        id: 103,
-        title: "My Fourth Todo",
-        dismissed: false
-    },
-    {
-        id: 104,
-        title: "My Fifth Todo",
+        title: "Go for a walk",
         dismissed: false
     }
 ];
@@ -38,6 +23,9 @@ const todos = (state = [], action) => {
             const { id } = action.payload;
             const todoIdx = getIndexById(state, id);
             return [...state.slice(0, todoIdx), ...state.slice(todoIdx + 1)];
+
+        case actionTypes.ADD_TODO.SUCCESS:
+            return [...state, ...[action.payload.data]];
 
         default:
             return state;
