@@ -12,98 +12,17 @@ import {
     UI_HEADER_MP_PROGRESS_SPRITE,
     heroSprite
 } from '../../sprites/index.js';
+import ProgressBar from './ProgressBar.js';
 
-const EXP_HEIGHT = 16;
-const EXP_MAX_WIDTH = 150;
+const BAR_MAX_HEIGHT = 16;
+const BAR_MAX_WIDTH = 150;
 
-const CharacterTopContent = props => {
+const CharacterTopContent = () => {
     return (
         <View style={styles.characterTopContent}>
             <View style={styles.characterDetailsLeft}>
                 <Text style={styles.characterName}>Dextron</Text>
                 <Text style={styles.characterLevelAndClass}>Level 29 Rogue</Text>
-            </View>
-        </View>
-    );
-};
-
-const HealthBar = ({ progress, currentExp, neededExp }) => {
-    const widthFromProgress = (90 / 100) * EXP_MAX_WIDTH;
-
-    return (
-        <View style={styles.hpBarGroup}>
-            <View style={styles.expBar}>
-                <Image
-                    source={UI_HEADER_HP_START_SPRITE.frames[0]}
-                    style={styles.expBarStart}
-                />
-                <Image
-                    source={UI_HEADER_HP_PROGRESS_SPRITE.frames[0]}
-                    style={{
-                        height: EXP_HEIGHT,
-                        maxWidth: EXP_MAX_WIDTH,
-                        width: widthFromProgress
-                    }}
-                    resizeMode={"stretch"}
-                />
-            </View>
-            <View style={styles.expBarLabelGroup}>
-                <Text style={styles.expBarCountLabel}>{`${90} / ${100}`}</Text>
-            </View>
-        </View>
-    );
-};
-
-const ManaBar = ({ progress, currentExp, neededExp }) => {
-    const widthFromProgress = (progress / 100) * EXP_MAX_WIDTH;
-
-    return (
-        <View>
-            <View style={styles.expBar}>
-                <Image
-                    source={UI_HEADER_EXP_START_SPRITE.frames[0]}
-                    style={styles.expBarStart}
-                />
-                <Image
-                    source={UI_HEADER_EXP_PROGRESS_SPRITE.frames[0]}
-                    style={{
-                        height: EXP_HEIGHT,
-                        maxWidth: EXP_MAX_WIDTH,
-                        width: widthFromProgress
-                    }}
-                    resizeMode={"stretch"}
-                />
-            </View>
-            <View style={styles.expBarLabelGroup}>
-                <Text style={styles.expBarCountLabel}>{`${currentExp} / ${neededExp}`}</Text>
-            </View>
-        </View>
-    );
-};
-
-const ExperienceBar = ({ progress, currentExp, neededExp }) => {
-
-    const widthFromProgress = (progress / 100) * EXP_MAX_WIDTH;
-
-    return (
-        <View>
-            <View style={styles.expBar}>
-                <Image
-                    source={UI_HEADER_EXP_START_SPRITE.frames[0]}
-                    style={styles.expBarStart}
-                />
-                <Image
-                    source={UI_HEADER_EXP_PROGRESS_SPRITE.frames[0]}
-                    style={{
-                        height: EXP_HEIGHT,
-                        maxWidth: EXP_MAX_WIDTH,
-                        width: widthFromProgress
-                    }}
-                    resizeMode={"stretch"}
-                />
-            </View>
-            <View style={styles.expBarLabelGroup}>
-                <Text style={styles.expBarCountLabel}>{`${currentExp} / ${neededExp}`}</Text>
             </View>
         </View>
     );
@@ -133,8 +52,15 @@ const CharacterBottomContent = ({ expBarProgress, currentExp, neededExp }) => {
                 />
             </View>
             <View style={styles.characterRightPanel}>
-                <HealthBar />
-                <ExperienceBar progress={expBarProgress} currentExp={currentExp} neededExp={neededExp}/>
+                <ProgressBar
+                    progress={expBarProgress}
+                    currentExp={currentExp}
+                    neededExp={neededExp}
+                    height={BAR_MAX_HEIGHT}
+                    maxWidth={BAR_MAX_WIDTH}
+                    startSprite={UI_HEADER_EXP_START_SPRITE.frames[0]}
+                    progressSprite={UI_HEADER_EXP_PROGRESS_SPRITE.frames[0]}
+                />
             </View>
         </View>
     );
@@ -151,14 +77,12 @@ class CharacterHeader extends React.Component {
     }
 }
 
-const calculateProgress = (current, need) => Math.floor((current / need) * 100);
-
 const mapStateToProps = state => {
     const { current, need } = state.character.status.exp;
     return {
         currentExp: current,
         neededExp: need,
-        expBarProgress: calculateProgress(current, need)
+        expBarProgress: Math.floor((current / need) * 100)
     };
 };
 
@@ -208,26 +132,10 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         alignItems: "flex-end"
     },
-    expBar: {
-        flexDirection: "row",
-        width: EXP_MAX_WIDTH,
-        height: EXP_HEIGHT,
-        backgroundColor: "#dedede"
-    },
-    expBarStart: {
-        width:4,
-        height:EXP_HEIGHT
-    },
-    expBarLabelGroup: {
-        flexDirection: "row"
-    },
-    expBarCountLabel: {
-        flex: 1,
-        paddingTop: 2,
-        fontSize: 12,
-        textAlign: "right"
-    },
     hpBarGroup: {
         marginBottom: 5
+    },
+    mpBarGroup: {
+        
     }
 });

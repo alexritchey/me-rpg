@@ -1,18 +1,33 @@
 import React from 'react';
-import { NavigatorIOS, TabBarIOS, View, StyleSheet } from 'react-native';
-import TodoList from '../../tasks/components/TodoList.js';
+import { NavigatorIOS, TabBarIOS, View, StyleSheet, Text } from 'react-native';
+import TasksView from '../../tasks/components/TasksView.js';
+import Modal from 'react-native-modalbox';
 import CharacterHeader from '../../character/components/CharacterHeader.js';
 
-const InitialView = () => {
+const InitialView = props => {
     return (
         <View style={styles.container}>
             <CharacterHeader />
-            <TodoList />
+            <TasksView
+                {...props}
+            />
         </View>
     );
 };
 
 export default class Root extends React.Component {
+
+    constructor(props, context) {
+        super(props, context);
+        this._onTriggerModal = this._onTriggerModal.bind(this);
+    }
+
+    _onTriggerModal() {
+        if (this.todoSettingsModal) {
+            this.todoSettingsModal.open();
+        }
+    }
+
     render() {
         return (
             <View style={styles.wrapper}>
@@ -20,6 +35,9 @@ export default class Root extends React.Component {
                     style={{flex: 1}}
                     initialRoute={{
                         component: InitialView,
+                        passProps: {
+                            onTriggerModal: this._onTriggerModal
+                        },
                         title: "Home"
                     }}
                 />
@@ -31,7 +49,6 @@ export default class Root extends React.Component {
                         />
                         <TabBarIOS.Item
                             title="Tasks"
-                            style={{backgroundColor:"black"}}
                         />
                         <TabBarIOS.Item
                             title="Dungeons"
@@ -41,6 +58,15 @@ export default class Root extends React.Component {
                         />
                     </TabBarIOS>
                 </View>
+                <Modal
+                    style={{flex: 1, backgroundColor: "white"}}
+                    ref={(modal) => { this.todoSettingsModal = modal; }}
+                    onClosed={this.onClose}
+                    onOpened={this.onOpen}
+                    onClosingState={this.onClosingState}
+                >
+                    <Text style={styles.text}>Basic modal</Text>
+                </Modal>
             </View>
         );
     }

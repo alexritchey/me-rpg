@@ -36,7 +36,6 @@ const todos = (state = [], action) => {
 
         case actionTypes.COMPLETE_TODO.SUCCESS:
             const { id } = action.payload;
-            console.log(id);
             const todoIdx = getIndexById(state, id);
             return [...state.slice(0, todoIdx), ...state.slice(todoIdx + 1)];
 

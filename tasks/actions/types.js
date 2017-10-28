@@ -3,3 +3,5 @@ export const COMPLETE_TODO = {
     SUCCESS: 'tasks/COMPLETE_TODO_SUCCESS',
     FAILURE: 'tasks/COMPLETE_TODO_FAILURE'
 };
+
+export const CHANGE_TAB = 'tasks/CHANGE_TAB';

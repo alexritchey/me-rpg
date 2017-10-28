@@ -23,3 +23,13 @@ export const completeTodoFailure = () => {
         payload: {}
     };
 };
+
+
+export const changeTab = newTab => {
+    return {
+        type: actionTypes.CHANGE_TAB,
+        payload: {
+            newTab
+        }
+    };
+};
