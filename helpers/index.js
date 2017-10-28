@@ -8,3 +8,15 @@ export const getIndexById = (list, id) => {
         return item.id === id;
     });
 };
+
+/**
+ * Constructs an object supplying properties for request, success, and failure actions.
+ * @param {string} type - The Redux action type
+ */
+export const createFetchType = (type) => {
+    return {
+        REQUEST: `${type}_REQUEST`,
+        SUCCESS: `${type}_SUCCESS`,
+        FAILURE: `${type}_FAILURE`
+    };
+};
