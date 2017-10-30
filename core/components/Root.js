@@ -1,9 +1,12 @@
 import React from 'react';
-import { NavigatorIOS, TabBarIOS, View, StyleSheet } from 'react-native';
+import { TabBarIOS, View, StyleSheet, Navigator } from 'react-native';
 import TasksView from '../../tasks/components/TasksView.js';
 import Modal from 'react-native-modalbox';
 import AddTodoView from '../../tasks/components/AddTodoView.js';
 import CharacterHeader from '../../character/components/CharacterHeader.js';
+import Icon from 'react-native-vector-icons/Ionicons';
+import NavigationBar from 'react-native-navbar';
+import { StackNavigator } from 'react-navigation';
 
 const InitialView = props => {
     return (
@@ -32,16 +35,16 @@ export default class Root extends React.Component {
     render() {
         return (
             <View style={styles.wrapper}>
-                <NavigatorIOS
-                    style={{flex: 1}}
-                    initialRoute={{
-                        component: InitialView,
-                        passProps: {
-                            onTriggerModal: this._onTriggerModal
-                        },
-                        title: "Home"
-                    }}
-                />
+                <View style={{ flex: 1 }}>
+                    <NavigationBar
+                        title={{ title: 'Home' }}
+                        rightButton={{
+                            title: "Add",
+                            handler: this._onTriggerModal
+                        }}
+                    />
+                    <InitialView onTriggerModal={this._onTriggerModal}/>
+                </View>
                 <View style={{height:50}}>
                     <TabBarIOS>
                         <TabBarIOS.Item
@@ -81,7 +84,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#f9f9f9"
     },
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: "orange"
     },
     instructions: {
         flex: 1,

@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#f9f9f9",
         borderBottomWidth: 1,
         borderBottomColor: "#dedede",
-        marginTop: NAVIGATION_BAR_HEIGHT,
         padding: 15
     },
     characterPose: {
