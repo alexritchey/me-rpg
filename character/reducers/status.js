@@ -1,38 +1,58 @@
 import * as actionTypes from '../actions/types';
 import { COMPLETE_TODO } from '../../tasks/actions/types.js';
+import { combineReducers } from 'redux';
 
-const initialState = {
-    level: 0,
-    exp: {
-        current: 40,
-        need: 120,
-        progress: 0,
-        tilNextLevel: 0,
-        total: 0
-    }
-};
+const createStatus = () => {
+    const name = (state = "", action) => {
+        switch (action.type) {
+            case 'INITIAL_ACTION':
+                return "Dextron";
+            default:
+                return state;
+        }
+    };
 
-const status = (state = initialState, action) => {
-    switch (action.type) {
-        case 'INITIAL_ACTION':
-            return {
-                level: 2,
-                exp: {
+    const level = (state = 0, action) => {
+        switch (action.type) {
+            case 'INITIAL_ACTION':
+                return 2;
+            default:
+                return state;
+        }
+    };
+
+    const exp = (state = {}, action) => {
+        switch (action.type) {
+            case 'INITIAL_ACTION':
+                return {
                     current: 20,
                     need: 120,
-                    tilNextlevel: 100,
                     total: 140
-                }
-            };
-        case COMPLETE_TODO.SUCCESS:
-            return Object.assign({}, state, {
-                exp: Object.assign({}, state.exp, {
-                    current: state.exp.current + 15
-                })
-            });
-        default:
-            return state;
-    }
+                };
+            case COMPLETE_TODO.SUCCESS:
+                return Object.assign({}, state, {
+                    current: state.current + 15
+                });
+            default:
+                return state;
+        }
+    };
+
+    const money = (state = 0, action) => {
+        switch (action.type) {
+            case 'INITIAL_ACTION':
+                return state;
+            default:
+                return state;
+        }
+    };
+
+    return combineReducers({
+        name,
+        level,
+        exp,
+        money
+    });
 };
 
-export default status;
+export default createStatus();

@@ -29,7 +29,8 @@ const ProgressBar = props => {
         progressBarCountLabel: {
             flex: 1,
             paddingTop: 2,
-            fontSize: 12,
+            fontSize: 14,
+            fontWeight: "bold",
             textAlign: "right"
         }
     }, (props.styles || {}));

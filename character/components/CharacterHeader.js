@@ -17,27 +17,24 @@ import ProgressBar from './ProgressBar.js';
 const BAR_MAX_HEIGHT = 16;
 const BAR_MAX_WIDTH = 150;
 
-const CharacterTopContent = () => {
+const CharacterTopContent = ({ name, level }) => {
     return (
         <View style={styles.characterTopContent}>
             <View style={styles.characterDetailsLeft}>
-                <Text style={styles.characterName}>Dextron</Text>
-                <Text style={styles.characterLevelAndClass}>Level 29 Rogue</Text>
+                <Text style={styles.characterName}>{name}</Text>
+                <Text style={styles.characterLevelAndClass}>{`Level ${level}`}</Text>
             </View>
         </View>
     );
 };
 
 const CharacterBottomContent = ({ expBarProgress, currentExp, neededExp }) => {
-    // const staticImage = (
-    //     <Image
-    //         style={styles.characterPose}
-    //         source={require("../../images/mock-character.png")}
-    //     />
-    // );
-
     return (
         <View style={styles.characterBottomContent}>
+            <View style={{position: "absolute", top: 0, left: -15, width: "100%", height: "100%"}}>
+                <Image source={require('../../images/mock-background.png')} />
+            </View>
+            
             <View style={styles.characterLeftPanel}>
                 <AnimatedSprite
                     sprite={heroSprite}
@@ -79,7 +76,11 @@ class CharacterHeader extends React.Component {
 
 const mapStateToProps = state => {
     const { current, need } = state.character.status.exp;
+    const { name, level } = state.character.status;
+
     return {
+        name,
+        level,
         currentExp: current,
         neededExp: need,
         expBarProgress: Math.floor((current / need) * 100)
@@ -104,8 +105,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
-        borderBottomColor: "#dedede",
-        borderBottomWidth: 1,
+        // borderBottomColor: "#dedede",
+        // borderBottomWidth: 1,
         paddingBottom: 5
     },
     characterDetailsLeft: {
@@ -129,7 +130,8 @@ const styles = StyleSheet.create({
     characterRightPanel: {
         flex: 1,
         justifyContent: "flex-end",
-        alignItems: "flex-end"
+        alignItems: "flex-end",
+        backgroundColor: "rgba(0,0,0,0)"
     },
     hpBarGroup: {
         marginBottom: 5

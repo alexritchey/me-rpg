@@ -37,10 +37,15 @@ export default class Root extends React.Component {
             <View style={styles.wrapper}>
                 <View style={{ flex: 1 }}>
                     <NavigationBar
-                        title={{ title: 'Home' }}
+                        title={{ title: 'Home', tintColor: "white" }}
                         rightButton={{
                             title: "Add",
-                            handler: this._onTriggerModal
+                            handler: this._onTriggerModal,
+                            tintColor: "white"
+                        }}
+                        tintColor="#1abc9c"
+                        statusBar={{
+                            style: "light-content"
                         }}
                     />
                     <InitialView onTriggerModal={this._onTriggerModal}/>
