@@ -4,12 +4,12 @@ import { getIndexById } from '../../helpers/index.js';
 const dummyData = [
     {
         id: 100,
-        title: "Brush teeth",
+        title: "Go to store",
         dismissed: false
     },
     {
         id: 101,
-        title: "Go for a walk",
+        title: "Clean bathroom",
         dismissed: false
     }
 ];

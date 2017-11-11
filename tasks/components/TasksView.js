@@ -1,40 +1,20 @@
 import React from 'react';
-import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, View, StyleSheet } from 'react-native';
 import SegmentedView from 'react-native-segmented-view';
 import * as actions from '../actions/index.js';
 import { connect } from 'react-redux';
 import { TAB_MAP } from '../../constants/tasks.js';
-import Modal from 'react-native-modalbox';
 import { H1 } from 'nachos-ui';
 
-class TodoCell extends React.PureComponent {
-    render() {
-        const { onTapComplete, onTapCell } = this.props;
-        return (
-            <View style={styles.cell}>
-                <TouchableOpacity
-                    style={{flex: 1}}
-                    onPress={() => onTapComplete(this.props.id)}
-                    activeOpacity={0.9}
-                >
-                    <View style={styles.cellCheckbox} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.cellContent}
-                    onPress={() => onTapCell()}
-                >
-                    <Text style={styles.cellText}>{this.props.title}</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
-}
+import TodoCell from './TodoCell.js';
+import HabitCell from './HabitCell.js';
+import DailyCell from './DailyCell.js';
 
 class TasksView extends React.PureComponent {
 
     constructor(props, context) {
         super(props, context);
-        this._onTapComplete = this._onTapComplete.bind(this);
+        this._onTapCompleteTodo = this._onTapCompleteTodo.bind(this);
         this._onChangeTab = this._onChangeTab.bind(this);
 
         this.state = {
@@ -42,7 +22,7 @@ class TasksView extends React.PureComponent {
         };
     }
 
-    _onTapComplete(id) {
+    _onTapCompleteTodo(id) {
         this.props.dispatchCompleteTodo(id);
     }
 
@@ -53,6 +33,46 @@ class TasksView extends React.PureComponent {
     }
 
     render() {
+        let renderCell;
+        let data;
+        switch (this.state.index) {
+            case 0:
+                data = this.props.todoList;
+                renderCell = ({item}) =>
+                    <TodoCell
+                        title={item.title}
+                        id={item.id}
+                        onTapComplete={this._onTapCompleteTodo}
+                        onTapCell={this.props.onTriggerModal}
+                    />;
+                break;
+            case 1:
+                data = this.props.habitList;
+                renderCell = ({item}) =>
+                    <HabitCell
+                        title={item.title}
+                        id={item.id}
+                        onTapComplete={this._onTapCompleteTodo}
+                        onTapCell={this.props.onTriggerModal}
+                    />;
+                break;
+            case 2:
+                data = this.props.dailyList;
+                renderCell = ({item}) =>
+                    <DailyCell
+                        title={item.title}
+                        id={item.id}
+                        onTapComplete={this._onTapCompleteTodo}
+                        onTapCell={this.props.onTriggerModal}
+                    />;
+                break;
+            default:
+                data = [];
+                renderCell = () => {};
+                break;
+        }
+
+
         return (
             <View style={styles.container}>
                 <View style={{height: 42}}>
@@ -63,19 +83,12 @@ class TasksView extends React.PureComponent {
                         onPress={this._onChangeTab}
                     />
                 </View>
-                {this.props.list.length ?
+                {data && data.length ?
                     <FlatList
-                        data={this.props.list}
+                        data={data}
                         contentContainerStyle={{justifyContent: "flex-start", paddingTop: 15}}
                         automaticallyAdjustContentInsets={false}
-                        renderItem={({item}) =>
-                            <TodoCell
-                                title={item.title}
-                                id={item.id}
-                                onTapComplete={this._onTapComplete}
-                                onTapCell={this.props.onTriggerModal}
-                            />
-                        }
+                        renderItem={renderCell}
                         keyExtractor={(item, index) => index}
                         style={{flex: 7}}
                     /> :
@@ -90,7 +103,9 @@ class TasksView extends React.PureComponent {
 
 const mapStateToProps = state => {
     return {
-        list: state.tasks.todos,
+        todoList: state.tasks.todos,
+        habitList: state.tasks.habits,
+        dailyList: state.tasks.dailies,
         currentTab: state.tasks.currentTab
     };
 };
