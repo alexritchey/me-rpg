@@ -75,15 +75,15 @@ class CharacterHeader extends React.Component {
 }
 
 const mapStateToProps = state => {
-    const { current, need } = state.character.status.exp;
+    const { current, next } = state.character.status.exp;
     const { name, level } = state.character.status;
 
     return {
         name,
         level,
         currentExp: current,
-        neededExp: need,
-        expBarProgress: Math.floor((current / need) * 100)
+        neededExp: next,
+        expBarProgress: Math.floor((current / next) * 100)
     };
 };
 

@@ -1,10 +1,11 @@
+import { FETCH_CHARACTER_DATA } from '../../core/actions/actionTypes.js';
 import { combineReducers } from 'redux';
 
 const createAttributes = () => {
     const hp = (state = {}, action) => {
         switch (action.type) {
-            case 'INITIAL_ACTION':
-                return state;
+            case FETCH_CHARACTER_DATA.SUCCESS:
+                return action.response.hp;
             default:
                 return state;
         }

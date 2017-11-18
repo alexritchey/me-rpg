@@ -1,12 +1,13 @@
 import * as actionTypes from '../actions/types';
+import { FETCH_CHARACTER_DATA } from '../../core/actions/actionTypes.js';
 import { COMPLETE_TODO } from '../../tasks/actions/types.js';
 import { combineReducers } from 'redux';
 
 const createStatus = () => {
     const name = (state = "", action) => {
         switch (action.type) {
-            case 'INITIAL_ACTION':
-                return "Dextron";
+            case FETCH_CHARACTER_DATA.SUCCESS:
+                return action.response.status.name;
             default:
                 return state;
         }
@@ -14,8 +15,8 @@ const createStatus = () => {
 
     const level = (state = 0, action) => {
         switch (action.type) {
-            case 'INITIAL_ACTION':
-                return 2;
+            case FETCH_CHARACTER_DATA.SUCCESS:
+                return action.response.status.level;
             default:
                 return state;
         }
@@ -23,12 +24,8 @@ const createStatus = () => {
 
     const exp = (state = {}, action) => {
         switch (action.type) {
-            case 'INITIAL_ACTION':
-                return {
-                    current: 20,
-                    need: 120,
-                    total: 140
-                };
+            case FETCH_CHARACTER_DATA.SUCCESS:
+                return action.response.status.experience;
             case COMPLETE_TODO.SUCCESS:
                 return Object.assign({}, state, {
                     current: state.current + 15
@@ -40,8 +37,8 @@ const createStatus = () => {
 
     const money = (state = 0, action) => {
         switch (action.type) {
-            case 'INITIAL_ACTION':
-                return state;
+            case FETCH_CHARACTER_DATA.SUCCESS:
+                return action.response.status.money;
             default:
                 return state;
         }
