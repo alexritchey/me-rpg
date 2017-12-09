@@ -36,7 +36,13 @@ export const dispatchFetchTasks = () => (dispatch) => {
     dispatch(actions.fetchTasksRequest());
     return api.fetchTasks().then(
         taskData => {
-            dispatch(actions.fetchTasksSuccess(taskData.val()));
+            const taskDataVal = taskData.val();
+            if (taskDataVal) {
+                dispatch(actions.fetchTasksSuccess(taskDataVal));
+            }
+        },
+        () => {
+            dispatch(actions.fetchTasksFailure());
         }
     );
 };

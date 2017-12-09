@@ -17,6 +17,8 @@ const createStatus = () => {
         switch (action.type) {
             case FETCH_CHARACTER_DATA.SUCCESS:
                 return action.response.status.level;
+            case actionTypes.UPDATE_LEVEL_AND_EXP.SUCCESS:
+                return action.payload.level;
             default:
                 return state;
         }
@@ -28,8 +30,10 @@ const createStatus = () => {
                 return action.response.status.experience;
             case COMPLETE_TODO.SUCCESS:
                 return Object.assign({}, state, {
-                    current: state.current + 15
+                    current: state.current + 30
                 });
+            case actionTypes.UPDATE_LEVEL_AND_EXP.SUCCESS:
+                return action.payload.experience;
             default:
                 return state;
         }

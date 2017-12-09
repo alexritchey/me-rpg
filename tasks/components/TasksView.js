@@ -9,6 +9,7 @@ import { H1 } from 'nachos-ui';
 import TodoCell from './TodoCell.js';
 import HabitCell from './HabitCell.js';
 import DailyCell from './DailyCell.js';
+import { updateExp, resetLevelAndExp } from '../../character/actions/index';
 
 class TasksView extends React.PureComponent {
 
@@ -96,6 +97,16 @@ class TasksView extends React.PureComponent {
                         <H1>Add some tasks!</H1>
                     </View>
                 }
+                <TodoCell
+                    title="Add 80 Experience"
+                    onTapComplete={() => this.props.updateExp(80)}
+                    onTapCell={() => {}}
+                />
+                <TodoCell
+                    title="Reset Level And Experience"
+                    onTapComplete={() => this.props.resetLevelAndExp()}
+                    onTapCell={() => {}}
+                />
             </View>
         );
     }
@@ -110,7 +121,7 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, actions)(TasksView);
+export default connect(mapStateToProps, {...actions, updateExp, resetLevelAndExp})(TasksView);
 
 const styles = StyleSheet.create({
     container: {
