@@ -1,6 +1,5 @@
 import { AppRegistry } from 'react-native';
 import React from 'react';
-import { NativeRouter } from 'react-router-native';
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';

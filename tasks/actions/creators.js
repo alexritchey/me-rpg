@@ -34,9 +34,7 @@ export const addTodoRequest = () => {
 export const addTodoSuccess = data => {
     return {
         type: actionTypes.ADD_TODO.SUCCESS,
-        payload: {
-            data
-        }
+        data
     };
 };
 

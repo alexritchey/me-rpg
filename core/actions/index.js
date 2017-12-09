@@ -7,12 +7,14 @@ export const dispatchFetchInitialData = () => (dispatch, getState) => {
     dispatch(dispatchFetchUserData()).then(() => {
         const activeId = selectors.getActiveCharacterId(getState());
         if (activeId) {
-            dispatch(dispatchFetchCharacterData(activeId));
+            dispatch(dispatchFetchCharacterData(activeId)).then(() => {
+                dispatch(dispatchFetchTasks());
+            });
         }
     });
 };
 
-export const dispatchFetchUserData = () => (dispatch, getState) => {
+export const dispatchFetchUserData = () => (dispatch) => {
     dispatch(actions.fetchUserDataRequest());
     return api.fetchUserData().then(
         userData => {
@@ -21,11 +23,20 @@ export const dispatchFetchUserData = () => (dispatch, getState) => {
     );
 };
 
-export const dispatchFetchCharacterData = charId => (dispatch, getState) => {
+export const dispatchFetchCharacterData = charId => (dispatch) => {
     dispatch(actions.fetchCharacterDataRequest());
     return api.fetchCharacterData(charId).then(
         charData => {
             dispatch(actions.fetchCharacterDataSuccess(charData.val()));
+        }
+    );
+};
+
+export const dispatchFetchTasks = () => (dispatch) => {
+    dispatch(actions.fetchTasksRequest());
+    return api.fetchTasks().then(
+        taskData => {
+            dispatch(actions.fetchTasksSuccess(taskData.val()));
         }
     );
 };
